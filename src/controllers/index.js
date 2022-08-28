@@ -1,4 +1,4 @@
-const EthereumTx = require('ethereumjs-tx')
+const EthereumTransaction = require('ethereumjs-tx')
 const { generateErrorResponse } = require('../helpers/generate-response')
 const  { validateCaptcha } = require('../helpers/captcha-helper')
 const { debug } = require('../helpers/debug')
@@ -89,7 +89,7 @@ module.exports = function (app) {
 		  data: '0x00'
 		}
 
-		const tx = EthereumTx.Transaction
+		const tx = new EthereumTransaction(rawTx)
 		tx.sign(privateKeyHex)
 
 		const serializedTx = tx.serialize()
