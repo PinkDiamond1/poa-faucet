@@ -2,6 +2,7 @@ const EthereumTransaction = require('ethereumjs-tx').Transaction
 const { generateErrorResponse } = require('../helpers/generate-response')
 const  { validateCaptcha } = require('../helpers/captcha-helper')
 const { debug } = require('../helpers/debug')
+import Common from '@ethereumjs/common'
 
 module.exports = function (app) {
 	const config = app.config
@@ -89,7 +90,8 @@ module.exports = function (app) {
 		  data: '0x00',
 		}
 
-		const tx = new EthereumTransaction(rawTx,{chainId: "0x6"})
+		const common = Common.custom({ chainId: 6 })
+		const tx = new EthereumTransaction(rawTx,{common})
 		tx.sign(privateKeyHex)
 
 		const serializedTx = tx.serialize()
