@@ -89,7 +89,7 @@ module.exports = function (app) {
 		  data: '0x00'
 		}
 
-		const Tx = require('ethereumjs-tx').Transaction
+		const tx = EthereumTx.Transaction
 		tx.sign(privateKeyHex)
 
 		const serializedTx = tx.serialize()
