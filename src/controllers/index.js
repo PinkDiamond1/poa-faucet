@@ -90,7 +90,7 @@ module.exports = function (app) {
 		  data: '0x00',
 		}
 
-		const common = Common.custom({ chainId: 6 })
+		const common = new Common.custom({ chainId: 6 })
 		const tx = new EthereumTransaction(rawTx,{common})
 		tx.sign(privateKeyHex)
 
