@@ -2,7 +2,7 @@ const EthereumTransaction = require('ethereumjs-tx').Transaction
 const { generateErrorResponse } = require('../helpers/generate-response')
 const  { validateCaptcha } = require('../helpers/captcha-helper')
 const { debug } = require('../helpers/debug')
-const Common = require('@ethereumjs/common')
+const Common = require('@ethereumjs/common').default
 
 module.exports = function (app) {
 	const config = app.config
@@ -19,24 +19,24 @@ module.exports = function (app) {
 		const isDebug = app.config.debug
 		debug(isDebug, "REQUEST:")
 		debug(isDebug, request.body)
-		const recaptureResponse = request.body["g-recaptcha-response"]
-		if (!recaptureResponse) {
-			const error = {
-				message: messages.INVALID_CAPTCHA,
-			}
-			return generateErrorResponse(response, error)
-		}
-
-		let captchaResponse
-		try {
-			captchaResponse = await validateCaptcha(app, recaptureResponse)
-		} catch(e) {
-			return generateErrorResponse(response, e)
-		}
+		// const recaptureResponse = request.body["g-recaptcha-response"]
+		// if (!recaptureResponse) {
+		// 	const error = {
+		// 		message: messages.INVALID_CAPTCHA,
+		// 	}
+		// 	return generateErrorResponse(response, error)
+		// }
+		//
+		// let captchaResponse
+		// try {
+		// 	captchaResponse = await validateCaptcha(app, recaptureResponse)
+		// } catch(e) {
+		// 	return generateErrorResponse(response, e)
+		// }
 		const receiver = request.body.receiver
-		if (await validateCaptchaResponse(captchaResponse, receiver, response)) {
+		// if (await validateCaptchaResponse(captchaResponse, receiver, response)) {
 			await sendPOAToRecipient(web3, receiver, response, isDebug)
-		}
+		// }
 	});
 
 	app.get('/health', async function(request, response) {
@@ -90,7 +90,7 @@ module.exports = function (app) {
 		  data: '0x00',
 		}
 
-		const common = new Common.custom({ chainId: 6 })
+		const common = Common.custom({ chainId: 6 })
 		const tx = new EthereumTransaction(rawTx,{common})
 		tx.sign(privateKeyHex)
 
