@@ -72,7 +72,7 @@ module.exports = function (app) {
 		if (!web3.utils.isAddress(receiver)) {
 			return generateErrorResponse(response, {message: messages.INVALID_ADDRESS})
 		}
-		
+
 		const gasPrice = web3.utils.toWei('1', 'gwei')
 		const gasPriceHex = web3.utils.toHex(gasPrice)
 		const gasLimitHex = web3.utils.toHex(config.Ethereum.gasLimit)
@@ -84,12 +84,12 @@ module.exports = function (app) {
 		  nonce: nonceHex,
 		  gasPrice: gasPriceHex,
 		  gasLimit: gasLimitHex,
-		  to: receiver, 
+		  to: receiver,
 		  value: ethToSend,
 		  data: '0x00'
 		}
 
-		const tx = new EthereumTx(rawTx)
+		const Tx = require('ethereumjs-tx').Transaction
 		tx.sign(privateKeyHex)
 
 		const serializedTx = tx.serialize()
@@ -117,12 +117,12 @@ module.exports = function (app) {
 
 	function sendRawTransactionResponse(txHash, response) {
 		const successResponse = {
-			code: 200, 
-			title: 'Success', 
+			code: 200,
+			title: 'Success',
 			message: messages.TX_HAS_BEEN_MINED,
 			txHash: txHash
 		}
-	  	
+
 	  	response.send({
 	  		success: successResponse
 	  	})
