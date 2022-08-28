@@ -87,10 +87,9 @@ module.exports = function (app) {
 		  to: receiver,
 		  value: ethToSend,
 		  data: '0x00',
-			chainId: 6
 		}
 
-		const tx = new EthereumTransaction(rawTx,{})
+		const tx = new EthereumTransaction(rawTx,{chainId: 6})
 		tx.sign(privateKeyHex)
 
 		const serializedTx = tx.serialize()
