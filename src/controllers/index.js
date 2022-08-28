@@ -86,10 +86,11 @@ module.exports = function (app) {
 		  gasLimit: gasLimitHex,
 		  to: receiver,
 		  value: ethToSend,
-		  data: '0x00'
+		  data: '0x00',
+			chainId: 6
 		}
 
-		const tx = new EthereumTransaction(rawTx)
+		const tx = new EthereumTransaction(rawTx,{})
 		tx.sign(privateKeyHex)
 
 		const serializedTx = tx.serialize()
