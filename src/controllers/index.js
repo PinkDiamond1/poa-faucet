@@ -1,4 +1,4 @@
-const EthereumTransaction = require('ethereumjs-tx')
+const EthereumTransaction = require('ethereumjs-tx').Transaction
 const { generateErrorResponse } = require('../helpers/generate-response')
 const  { validateCaptcha } = require('../helpers/captcha-helper')
 const { debug } = require('../helpers/debug')
