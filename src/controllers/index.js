@@ -2,7 +2,7 @@ const EthereumTransaction = require('ethereumjs-tx').Transaction
 const { generateErrorResponse } = require('../helpers/generate-response')
 const  { validateCaptcha } = require('../helpers/captcha-helper')
 const { debug } = require('../helpers/debug')
-import Common from '@ethereumjs/common'
+const Common = require('@ethereumjs/common')
 
 module.exports = function (app) {
 	const config = app.config
